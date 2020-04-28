@@ -35,7 +35,7 @@ function pushConfig () {
 	git add .
 	git commit -m "added files"
 
-	git push https://ryyyyan-taylor:Pjwarrior12.@configs.biz/file.git --all
+	git push https://ryyyyan-taylor:Pjwarrior12.@configs.git --all
 
 	cd ~
 }
