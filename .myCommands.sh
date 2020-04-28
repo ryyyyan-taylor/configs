@@ -25,3 +25,17 @@ function temps () {
 	tlp-stat -t
 }
 
+function pushConfig () {
+	cp ~/.vimrc ~/Documents/configs
+	cp ~/.myCommands.sh ~/Documents/configs
+	cp ~/.tmux.conf ~/Documents/configs
+
+	cd Documents/configs
+
+	git add .
+	git commit -m "added files"
+
+	git push https://ryyyyan-taylor:Pjwarrior12.@configs.biz/file.git --all
+
+	cd ~
+}

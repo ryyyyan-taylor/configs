@@ -1,32 +1,16 @@
-syntax on
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'dkarter/bullets.vim'
 
-Plug 'reedes/vim-colors-pencil'
-Plug 'jacoborus/tender.vim'
+call plug#end ()
 
-call plug#end()
+set tabstop=4
+set softtabstop=0 noexpandtab
+set shiftwidth=4
 
-let g:vim_monokai_tasty_italic = 1
-set background=dark
-
-let g:vim_markdown_folding_disabled = 1
-
-autocmd VimEnter * set t_ut=
 set mouse=a
 set number
-
-filetype plugin indent on
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-set textwidth=0
-set wrapmargin=1
-set formatoptions+=t
-set formatoptions-=l
+set autoindent
 
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
