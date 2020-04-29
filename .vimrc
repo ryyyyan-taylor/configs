@@ -6,6 +6,8 @@ Plug 'airblade/vim-gitgutter'
 
 call plug#end ()
 
+:colorscheme industry
+
 set encoding=UTF-8
 syntax on
 filetype plugin indent on
@@ -19,7 +21,8 @@ set wildmenu
 highlight LineNr ctermfg=grey
 set spelllang=en_us
 
-"Allow movement through split lines
+"Allow movement through split lines"
+set wrap linebreak nolist
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
 nmap <silent> <Down> gj
