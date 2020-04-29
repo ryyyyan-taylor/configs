@@ -6,7 +6,9 @@ Plug 'airblade/vim-gitgutter'
 
 call plug#end ()
 
+"Colors"
 :colorscheme industry
+highlight LineNr ctermfg=grey
 
 set encoding=UTF-8
 syntax on
@@ -18,7 +20,6 @@ set mouse=a
 set number
 set autoindent
 set wildmenu
-highlight LineNr ctermfg=grey
 set spelllang=en_us
 
 "Allow movement through split lines"
