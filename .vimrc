@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'dkarter/bullets.vim'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-markdown'
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 call plug#end ()
 
