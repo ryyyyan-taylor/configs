@@ -21,6 +21,7 @@ set number
 set autoindent
 set wildmenu
 set spelllang=en_us
+set paste
 
 "Allow movement through split lines"
 set wrap linebreak nolist
