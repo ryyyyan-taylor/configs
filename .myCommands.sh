@@ -5,7 +5,8 @@ function gh () {
 	then
 		cp ~/.vimrc /mnt/c/Code/GitHub/configs
 		cp ~/.myCommands.sh /mnt/c/Code/GitHub/configs 
-		cp ~/.tmux.conf /mnt/c/Code/GitHub/configs 
+		cp ~/.tmux.conf /mnt/c/Code/GitHub/configs
+		cp ~/.bashrc /mnt/c/Code/GitHub/configs 
 
 		cd /mnt/c/Code/GitHub/configs 
 		git add .
