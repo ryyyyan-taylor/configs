@@ -76,9 +76,13 @@ alias downs='cd /mnt/c/Users/ryan4/Downloads/'
 alias code='cd /mnt/c/Code/'
 alias notes='cd /mnt/c/Code/GitHub/notes/'
 alias todo='vim /mnt/c/Code/GitHub/notes/todo.txt'
-alias terraria="sshpass -p 'serveradmin' ssh terraria@192.168.0.116"
+alias server="sshpass -p 'serveradmin' ssh terraria@192.168.0.116"
 alias ipList='echo local: 192.168.0.116 && echo global: 73.217.16.122'
 alias exp='explorer.exe'
+alias subl='"/mnt/c/Program Files/Sublime Text 3/subl.exe"'
+alias sr='source ~/.bashrc'
+alias sap='sudo apt update'
+alias sag='sudo apt upgrade'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -97,3 +101,20 @@ if ! shopt -oq posix; then
 fi
 
 source ~/.myCommands.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/ryan/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/ryan/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/ryan/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/ryan/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+conda config --set changeps1 false
+
