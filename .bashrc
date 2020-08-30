@@ -68,21 +68,24 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
 alias docs='cd /mnt/c/Users/ryan4/Documents/'
 alias downs='cd /mnt/c/Users/ryan4/Downloads/'
 alias code='cd /mnt/c/Code/'
 alias notes='cd /mnt/c/Code/GitHub/notes/'
-alias todo='vim /mnt/c/Code/GitHub/notes/todo.txt'
-alias server="sshpass -p 'serveradmin' ssh terraria@192.168.0.116"
-alias ipList='echo local: 192.168.0.116 && echo global: 73.217.16.122'
+alias terraria="sshpass -p 'serveradmin' ssh terraria@192.168.0.116"
+alias minecraft="sshpass -p 'serveradmin' ssh minecraft@192.168.0.116"
+alias ipList='echo local: 192.168.0.116 && echo global: 98.245.82.198'
 alias exp='explorer.exe'
 alias subl='"/mnt/c/Program Files/Sublime Text 3/subl.exe"'
 alias sr='source ~/.bashrc'
 alias sap='sudo apt update'
 alias sag='sudo apt upgrade'
+alias micro='sudo micro'
+alias cp='sudo cp'
+alias mv='sudo mv'
+alias rm='sudo rm'
+alias rmdir='sudo rmdir'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -100,21 +103,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-source ~/.myCommands.sh
+function gui () {
+	if [ $1 == "start" ]; then sudo /etc/init.d/xrdp start
+	elif [ $1 == "stop" ]; then sudo /etc/init.d/xrdp stop
+	else echo command not recognized; fi
+}
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/ryan/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/ryan/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/ryan/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/ryan/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-conda config --set changeps1 false
-
+function sql () {
+	if [ $1 == "start" ]; then sudo service postgresql start
+	elif [ $1 == "stop" ]; then sudo service postgresql stop
+	elif [ $1 == "connect"]; then sudo -u postgres psql
+	else echo command not recognized; fi
+}
