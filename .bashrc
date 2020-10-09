@@ -22,10 +22,16 @@ bind "set completion-ignore-case on"
 ### PROMPT
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\] \[\033[01;36m\]\W\[\033[00m\] > '
 
+# File Extension Colors
+LS_COLORS="di=1;36:st=1;36:tw=1;36:ow=1;36"
+export LS_COLORS
+
 # color support for list commands
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias la='ls -A --color=auto'
+alias ll='ls -g'
 alias grep='grep --color=auto'
+alias tree='tree -C'
 
 # navigation shortcuts
 alias docs='cd /mnt/c/Users/ryan4/Documents/'
@@ -50,10 +56,12 @@ alias sr='source ~/.bashrc'
 alias sap='sudo apt update'
 alias sag='sudo apt upgrade'
 alias sai='sudo apt install'
-alias sar='sudo apt autoremove'
+alias sar='sudo apt remove'
+alias saa='sudo apt autoremove'
 
 # run commands with sudo, confirm before destructive commands
 alias micro='sudo micro'
+alias screen='sudo screen'
 alias cp='sudo cp'
 alias mv='sudo mv -i'
 alias rm='sudo rm -i'
@@ -63,13 +71,13 @@ alias rmdir='sudo rmdir -i'
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
+#if ! shopt -oq posix; then
+#  if [ -f /usr/share/bash-completion/bash_completion ]; then
+#    . /usr/share/bash-completion/bash_completion
+#  elif [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#  fi
+#fi
 
 function gui () {
 	if [ $1 == "start" ]; then sudo /etc/init.d/xrdp start
@@ -83,3 +91,7 @@ function sql () {
 	elif [ $1 == "connect"]; then sudo -u postgres psql
 	else echo command not recognized; fi
 }
+
+# CMDs to run on terminal load
+cd ~
+pfetch
