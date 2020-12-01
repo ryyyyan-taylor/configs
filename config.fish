@@ -25,12 +25,18 @@ function fish_prompt
     echo " > "
 end
 
+
 # GREETING
 function fish_greeting
+#    if status is-interactive
+#    and not set -q TMUX
+#        exec tmux
+#    end
     pfetch
 end
 
-## BANG BANG functionality
+
+# BANG BANG functionality
 function __history_previous_command
     switch (commandline -t)
     case "!"
@@ -52,17 +58,74 @@ bind ! __history_previous_command
 bind '$' __history_previous_command_arguments
 
 
+# simple git functions for personal and school projects
+function gh
+    if "$argv[1]" = "push"
+        git add .
+        git commit -a
+        git push
+    end
+end
+
+# actually logout if in tmux
+function logout
+    if $TERM = "screen"
+        exit && exit
+    end
+    exit
+end
+
+
+
+# SIMPLE FUNCTIONS
+# fixing tab completion with the way fish handles aliases
+
+
+# colors and specifics for super common stuff, use exa instead of ls
+function ls
+    command exa -al --color=always --group-directories-first $argv
+end
+function la
+    command exa -a --color=always --group-directories-first $argv
+end
+function ll
+    command exa -l --color=always --group-directories-first $argv
+end
+function lt
+    command exa -aT --color=always --group-directores-first $argv
+end
+function tree
+    command tree -C $argv
+end
+
+# run things with sudo, confirm before destructive ones
+function micro
+    command sudo micro $argv
+end
+function cp
+    command sudo cp $argv
+end
+function mv
+    command mv -i $argv
+end
+function rm
+    command rm -i $argv
+end
+function rmdir
+    command rmdir -i $argv
+end
+
+# batcat: paged and colorized replacement for cat
+function cat
+    command batcat --theme=base16 $argv
+end
+function ccat
+    command cat $argv
+end
 
 
 # ALIASES
 # most copied over from bashrc
-
-# output specifics for often used commands
-alias ls='ls --color=always --group-directories-first'
-alias la='ls -A --color=always'
-alias ll='ls -g --color=always'
-alias grep='grep --color=auto'
-alias tree='tree -C'
 
 # navigation shortcuts
 alias docs='cd /mnt/c/Users/ryan4/Documents/'
@@ -73,20 +136,12 @@ alias code='cd /mnt/c/Code/'
 alias terraria="sshpass -p 'serveradmin' ssh terraria@192.168.0.116"
 alias minecraft="sshpass -p 'serveradmin' ssh minecraft@192.168.0.116"
 
-# launch programs from bash
+# launch programs from command line
 alias exp='explorer.exe'
 alias subl='"/mnt/c/Program Files/Sublime Text 3/subl.exe"'
 
 # history with custom formatting
 alias history='history -R --show-time="%m.%d | %H:%M "'
-
-# for fish, use logout same as exit
-alias logout='exit'
-
-# bat : a colorized customizable replacement for cat
-alias cat='batcat --theme=base16'
-alias bat='batcat'
-alias ccat='command cat'
 
 # edit configs on the go
 alias emicro='sudo micro ~/.config/micro/settings.json'
@@ -101,11 +156,3 @@ alias sag='sudo apt upgrade'
 alias sai='sudo apt install'
 alias sar='sudo apt remove'
 alias saa='sudo apt autoremove'
-
-# run commands with sudo, confirm before destructive commands
-alias micro='sudo micro'
-alias screen='sudo screen'
-alias cp='sudo cp'
-alias mv='sudo mv -i'
-alias rm='sudo rm -i'
-alias rmdir='sudo rmdir -i'

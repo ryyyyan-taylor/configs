@@ -8,6 +8,8 @@ export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 export BAT_PAGER="less -FR --mouse"
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+export PSQLRC="~/.psqlrc"
+export HISTTIMEFORMAT="%d/%m/%y %T "
 force_color_prompt=yes
 
 # basic env varaibles
@@ -80,12 +82,14 @@ alias mv='sudo mv -i'
 alias rm='sudo rm -i'
 alias rmdir='sudo rmdir -i'
 
+alias hg='history | grep'
+
 
 
 # FUNCTIONS
 function gui () {
-	if [ $1 == "start" ]; then sudo /etc/init.d/xrdp start
-	elif [ $1 == "stop" ]; then sudo /etc/init.d/xrdp stop
+	if [[ $1 == "start" ]]; then sudo /etc/init.d/xrdp start
+	elif [[ $1 == "stop" ]]; then sudo /etc/init.d/xrdp stop
 	else echo command not recognized; fi
 }
 
@@ -96,5 +100,16 @@ function sql () {
 	else echo command not recognized; fi
 }
 
+function gh () {
+	if [[ $1 == "push" ]]; then
+		git add .
+		git commit -a
+		git push
+	fi
+	if [[ $1 == "pull" ]]; then
+		git pull
+	fi
+}
+
 # commands to run on terminal load
-pfetch
+pfetchsource "$HOME/.cargo/env"
