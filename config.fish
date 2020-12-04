@@ -28,10 +28,6 @@ end
 
 # GREETING
 function fish_greeting
-#    if status is-interactive
-#    and not set -q TMUX
-#        exec tmux
-#    end
     pfetch
 end
 
@@ -58,21 +54,10 @@ bind ! __history_previous_command
 bind '$' __history_previous_command_arguments
 
 
-# simple git functions for personal and school projects
-function gh
-    if "$argv[1]" = "push"
-        git add .
-        git commit -a
-        git push
-    end
-end
-
 # actually logout if in tmux
+# BROKEN FOR NOW?
 function logout
-    if $TERM = "screen"
-        exit && exit
-    end
-    exit
+    exit && exit
 end
 
 
