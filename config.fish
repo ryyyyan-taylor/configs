@@ -19,7 +19,7 @@ set HISTFILESIZE 2000
 function fish_prompt
     set_color green
     echo -n "$USER@"
-    set_color cyan 
+    set_color cyan
     echo -n " "(basename $PWD)
     set_color white
     echo " > "
@@ -35,19 +35,20 @@ end
 # BANG BANG functionality
 function __history_previous_command
     switch (commandline -t)
-    case "!"
-        commandline -t $history[1]; commandline -f repaint
-    case "*"
-        commandline -i !
+        case "!"
+            commandline -t $history[1]
+            commandline -f repaint
+        case "*"
+            commandline -i !
     end
 end
 function __history_previous_command_arguments
     switch (commandline -t)
-    case "!"
-        commandline -t ""
-        commandline -f history-token-search-backward
-    case "*"
-        commandline -i '$'
+        case "!"
+            commandline -t ""
+            commandline -f history-token-search-backward
+        case "*"
+            commandline -i '$'
     end
 end
 bind ! __history_previous_command
@@ -68,22 +69,28 @@ end
 
 # colors and specifics for super common stuff, use exa instead of ls
 function ls
-    command exa -al --color=always --group-directories-first $argv
+    command exa -a --color=always --group-directories-first $argv
 end
 function la
     command exa -a --color=always --group-directories-first $argv
 end
 function ll
-    command exa -l --color=always --group-directories-first $argv
+    command exa -la --color=always --group-directories-first $argv
 end
 function lt
-    command exa -aT --color=always --group-directores-first $argv
+    command tree -C $argv
 end
 function tree
     command tree -C $argv
 end
 
 # run things with sudo, confirm before destructive ones
+function vim
+    command sudo vim $argv
+end
+function vi
+    command sudo vi $argv
+end
 function micro
     command sudo micro $argv
 end
