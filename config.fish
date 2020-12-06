@@ -115,6 +115,12 @@ function ccat
     command cat $argv
 end
 
+# simple git function for personal commit
+function gp
+    git add .
+    git commit -a
+    git push
+end
 
 # ALIASES
 # most copied over from bashrc
