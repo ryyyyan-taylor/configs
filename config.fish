@@ -116,11 +116,14 @@ function ccat
 end
 
 # simple git function for personal commit
-function gp
-    git add .
-    git commit -a
-    git push
+function gh
+    if [ $argv[1] = "push" ]
+        git add .
+        git commit -a
+        git push
+    end
 end
+
 
 # ALIASES
 # most copied over from bashrc
