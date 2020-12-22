@@ -1,3 +1,5 @@
+# config.fish for the Fish shell. Most of this is simply copied over from my bashrc, so some lines may be irrelevant in fish
+
 # set terminal and editor
 export TERM="xterm-256color"
 export VISUAL=micro
@@ -71,8 +73,8 @@ end
 function ls
     command exa -a --color=always --group-directories-first $argv
 end
-function la
-    command exa -a --color=always --group-directories-first $argv
+function lss
+    command exa --color=always --group-directories-first $argv
 end
 function ll
     command exa -la --color=always --group-directories-first $argv
@@ -116,12 +118,10 @@ function ccat
 end
 
 # simple git function for personal commit
-function gh
-    if [ $argv[1] = "push" ]
-        git add .
-        git commit -a
-        git push
-    end
+function push
+    git add .
+    git commit -a
+    git push
 end
 
 
