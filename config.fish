@@ -9,6 +9,10 @@ export BAT_PAGER="less -FR --mouse"
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export PSQLRC="~/.psqlrc"
 export FISHPATH=/home/ryan/.config/fish/config.fish
+
+export CLOUDIP=/home/ryan/.sysadminips
+alias sysadmin="ssh root@100.64.0.29"
+
 set force_color_prompt yes
 
 # basic env varaibles
@@ -91,22 +95,22 @@ function vim
     command sudo vim $argv
 end
 function vi
-    command sudo vi $argv
+    command sudo vim $argv
 end
 function micro
     command sudo micro $argv
 end
 function cp
-    command sudo cp $argv
+    command sudo cp -i $argv
 end
 function mv
-    command mv -i $argv
+    command sudo mv -i $argv
 end
 function rm
-    command rm -i $argv
+    command sudo rm -i $argv
 end
 function rmdir
-    command rmdir -i $argv
+    command sudo rmdir -i $argv
 end
 
 # batcat: paged and colorized replacement for cat
@@ -117,15 +121,8 @@ function ccat
     command cat $argv
 end
 
-# simple git function for personal commit
-function push
-    git add .
-    git commit -a
-    git push
-end
-
-
 # ALIASES
+# aliases for things that don't need tab completion
 # most copied over from bashrc
 
 # navigation shortcuts
