@@ -10,8 +10,6 @@ export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export PSQLRC="~/.psqlrc"
 export FISHPATH=/home/ryan/.config/fish/config.fish
 
-export CLOUDIP=/home/ryan/.sysadminips
-alias sysadmin="ssh root@100.64.0.29"
 
 set force_color_prompt yes
 
@@ -38,6 +36,43 @@ function fish_greeting
 end
 
 
+# GAME SERVER ACCESS
+function server
+    if test $argv[1] = "connect"
+        if test $argv[2] = "rt"
+            command ssh rt@192.168.0.248
+        end
+        if test $argv[2] = "minecraft"
+            command ssh -t minecraft@192.168.0.248 'screen -r'
+        end
+        if test $argv[2] = "terraria"
+            command ssh -t terraria@192.168.0.248 'screen -r'
+        end
+    end
+
+    if test $argv[1] = "start"
+        if test $argv[2] = "minecraft"
+            command ssh -t @192.168.0.248 'systemctl start minecraft'
+        end
+        if test $argv[2] = "terraria"
+            command ssh -t @192.168.0.248 'systemctl start terraria'
+        end
+    end
+
+    if test $argv[1] = "stop"
+        if test $argv[2] = "minecraft"
+            command ssh -t minecraft@192.168.0.248 'screen -S minecraft -X stuff 'stop'$(echo -ne '\015')'
+        end
+        if test $argv[2] = "terraria"
+            command ssh -t terraria@192.168.0.248 'sudo systemctl stop terraria'
+        end
+    end
+
+    if test $argv[1] = "reset"
+        command ssh -t rt@192.168.0.248 '/home/rt/minecraft/reset.sh'
+    end
+end
+
 # BANG BANG functionality
 function __history_previous_command
     switch (commandline -t)
@@ -59,14 +94,6 @@ function __history_previous_command_arguments
 end
 bind ! __history_previous_command
 bind '$' __history_previous_command_arguments
-
-
-# actually logout if in tmux
-# BROKEN FOR NOW?
-function logout
-    exit && exit
-end
-
 
 
 # SIMPLE FUNCTIONS
@@ -136,7 +163,7 @@ alias minecraft="sshpass -p 'serveradmin' ssh minecraft@192.168.0.116"
 
 # launch programs from command line
 alias exp='explorer.exe'
-alias subl='"/mnt/c/Program Files/Sublime Text 3/subl.exe"'
+alias subl='/mnt/c/Program Files/Sublime Text 3/subl.exe'
 
 # history with custom formatting
 alias history='history -R --show-time="%m.%d | %H:%M "'
