@@ -6,6 +6,7 @@
 #  | '_ \ / _` / __| '_ \| '__/ __|
 # _| |_) | (_| \__ \ | | | | | (__ 
 #(_)_.__/ \__,_|___/_| |_|_|  \___|
+# hosted at 
 
 # default DO NOT DELETE
 [[ $- != *i* ]] && return
@@ -16,6 +17,8 @@ export VISUAL=micro
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+export GITUSER="ryyyyan-taylor"
+export GITTOKEN="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"
 force_color_prompt=yes
 
 # HISTORY
@@ -38,6 +41,8 @@ PS1="\n\[\033[1;32m\]\u@\h: \[\033[36m\w\e[1;31m\n: -> \[\033[0m\]"
 
 
 # GAME SERVER ACCESS
+# for now only access when home
+# setting up guacamole for remote access
 server () {
 
 	# connect to running games or user terminal
@@ -90,6 +95,30 @@ server () {
 	fi
 }
 
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *.tar.zst)   unzstd $1    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
 
 
 # ALIASES
@@ -110,6 +139,10 @@ alias grep='grep --color=auto'
 alias ebash='micro ~/.bashrc'
 alias sr='source ~/.bashrc'
 alias emicro='micro ~/.config'
+alias elacritty='micro ~/.config/alacritty/alacritty.yml'
+
+# git
+alias gitquicksync='git add . && git commit -m "update" && echo $GITTOKEN | xclip -sel clip && git push'
 
 # package management
 alias sai='sudo apt install'
@@ -118,6 +151,9 @@ alias sag='sudo apt upgrade'
 alias sar='sudo apt remove'
 alias saa='sudo apt autoremove'
 
+alias ssi='sudo snap install'
+alias ssr='sudo snap remove'
+
 # add sudo and interactive flags
 alias micro='sudo micro'
 alias cp='sudo cp -i'
@@ -125,5 +161,11 @@ alias mv='sudo mv -i'
 alias rm='sudo rm -i'
 alias rmdir='sudo rmdir'
 alias systemctl='sudo systemctl'
+
+# open nautilus in current directory
+alias exp='nautilus .'
+
+# loogin to fast campus wifi
+alias eduroam='sh ~/Downloads/SecureW2_JoinNow.run'
 
 pfetch
