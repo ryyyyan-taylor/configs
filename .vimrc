@@ -1,11 +1,3 @@
-call plug#begin('~/.vim/plugged')
-
-Plug 'dkarter/bullets.vim'
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-markdown'
-
-call plug#end ()
-
 "Colors"
 :colorscheme industry
 highlight LineNr ctermfg=grey
