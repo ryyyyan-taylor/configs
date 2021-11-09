@@ -18,15 +18,10 @@ echo "Stay by the machine, there will be some interactive installs"
 printf "\n"
 read -r -p "Press any key to continue..." key
 
-exit
-
 printf "\n\n"
 echo "${ORANGE}Checking current directory..."
-if [ $(ls .. | grep configs) != 0 ]; then
-	echo ERROR: could not find configs directory
-	exit
-else
-	echo FOUND
+if [ $(pwd | grep configs | wc -l) = 0 ]; then
+	echo ERROR: not working within configs directory
 	exit
 fi
 
@@ -36,12 +31,7 @@ echo "${ORANGE}Updating and upgrading apt databases${NC}"
 sudo apt update -y && sudo apt upgrade -y
 echo "${GREEN}Complete!${NC}"
 
-# GIT
-printf "\n\n"
-echo "${ORANGE}Installing git if not already...${NC}"
-sudo apt install git -y
-echo "${GREEN}Complete!${NC}"
-
+# COPY BASHRC FROM REMOTE
 printf "\n\n"
 echo "${ORANGE}Would you like to overwrite current .bashrc (y)?${NC}"
 read -r key
@@ -71,7 +61,7 @@ printf "\n\n"
 echo "${ORANGE}Installing pfetch sys utility${NC}"
 git clone https://github.com/dylanaraps/pfetch.git
 cd pfetch/
-sudo make
+sudo make install
 cd ..
 echo "${GREEN}Complete!${NC}"
 
@@ -84,7 +74,7 @@ echo "${GREEN}Complete!${NC}"
 
 # RUST CONFIRM
 printf "\n\n"
-echo "${ORANGE}Would you like to take the time to install Rust and some utilities?"
+echo "${ORANGE}Would you like to take the time to install Rust and the Cargo package manager?"
 echo "Do know, some aliases in .bashrc will not work without Rust utilities."
 read -r -p "Would you like to continue? (y/n): " key
 
