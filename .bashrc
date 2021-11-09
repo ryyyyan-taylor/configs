@@ -1,12 +1,10 @@
-# ~/.bashrc: executed by bash(0) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-#   _               _              
+# ~/.bashrc: executed by bash(0) for non-login shells
 #  | |__   __ _ ___| |__  _ __ ___ 
 #  | '_ \ / _` / __| '_ \| '__/ __|
 # _| |_) | (_| \__ \ | | | | | (__ 
 #(_)_.__/ \__,_|___/_| |_|_|  \___|
-# hosted at 
+#
+# hosted at https://github.com/ryyyyan-taylor/configs
 
 # default DO NOT DELETE
 [[ $- != *i* ]] && return
@@ -18,7 +16,6 @@ export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export GITUSER="ryyyyan-taylor"
-export GITTOKEN="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"
 force_color_prompt=yes
 
 # HISTORY
@@ -95,6 +92,8 @@ server () {
 	fi
 }
 
+
+# stolen from DistroTube on Youtube, extract all sorts of different filetypes
 ex ()
 {
   if [ -f $1 ] ; then
@@ -142,7 +141,8 @@ alias emicro='micro ~/.config'
 alias elacritty='micro ~/.config/alacritty/alacritty.yml'
 
 # git
-alias gitquicksync='git add . && git commit -m "update" && echo $GITTOKEN | xclip -sel clip && git push'
+alias gitquicksync='git add . && git commit -e && echo $GITTOKEN | xclip -sel clip && git push'
+alias token='ccat ~/token | xclip -sel clip'
 
 # package management
 alias sai='sudo apt install'
@@ -166,6 +166,6 @@ alias systemctl='sudo systemctl'
 alias exp='nautilus .'
 
 # loogin to fast campus wifi
-alias eduroam='sh ~/Downloads/SecureW2_JoinNow.run'
+alias eduroam='sh ~/SecureW2_JoinNow.run'
 
 pfetch
