@@ -18,8 +18,14 @@ echo "Stay by the machine, there will be some interactive installs"
 printf "\n"
 read -r -p "Press any key to continue..." key
 
+# CHECK USER AND DIRECTORY
 printf "\n\n"
-echo "${ORANGE}Checking current directory..."
+echo "${ORANGE}Checking current user"
+if [ $EUID = 0 ]; then
+	echo ERROR: Do not run script as root
+	exit
+fi
+echo "${ORANGE}Checking current directory"
 if [ $(pwd | grep configs | wc -l) = 0 ]; then
 	echo ERROR: not working within configs directory
 	exit
@@ -42,6 +48,15 @@ if [ $key = "y" ]; then
 else
 	echo Continuing...
 fi
+
+# OTHER CONFIGS
+printf "\n\n"
+echo "${ORANGE}Copying configs across system${NC}"
+cp .vimrc ~/.vimrc
+mkdir ~/.configs/alacritty/
+cp alacritty.yml ~/.configs/alacritty/
+cp dracula.yml ~/.configs/alacritty/
+echo "${GREEN}Complete!${NC}"
 
 # MICRO
 printf "\n\n"
