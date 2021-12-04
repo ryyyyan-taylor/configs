@@ -12,8 +12,6 @@ ORANGE='\033[0;33m'
 NC='\e[0m'
 
 echo "${ORANGE}Welcome!"
-echo "This script will copy bash configs and install the following programs:"
-echo "git, micro, vim, pfetch, htop, figlet, rust/cargo, exa, batcat"
 echo "Stay by the machine, there will be some interactive installs"
 printf "\n"
 read -r -p "Press any key to continue..." key
