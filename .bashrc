@@ -1,10 +1,11 @@
-# ~/.bashrc: executed by bash(0) for non-login shells
+#
 #  | |__   __ _ ___| |__  _ __ ___ 
 #  | '_ \ / _` / __| '_ \| '__/ __|
 # _| |_) | (_| \__ \ | | | | | (__ 
 #(_)_.__/ \__,_|___/_| |_|_|  \___|
 #
 # hosted at https://github.com/ryyyyan-taylor/configs
+# visit me at https://ryantaylor.tech
 
 # default DO NOT DELETE
 [[ $- != *i* ]] && return
@@ -16,7 +17,17 @@ export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export GITUSER="ryyyyan-taylor"
-force_color_prompt=yes
+export MICRO_TRUECOLOR=1
+export SPICETIFY_INSTALL="/home/rt/spicetify-cli"
+
+# PATH and PERL PATH
+export PATH="$SPICETIFY_INSTALL:/home/rt/.cargo/bin:$PATH"
+
+PATH="/home/rt/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/rt/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/rt/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/rt/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/rt/perl5"; export PERL_MM_OPT;
 
 # HISTORY
 HISTCONTROL=ignoreboth
@@ -31,69 +42,16 @@ shopt -s autocd
 shopt -s cdspell
 shopt -s dirspell
 shopt -s checkwinsize
+force_color_prompt=yes
 
-# PROMPT
+# PROMPT / WINDOW TITLE
 PS1="\n\[\033[1;32m\]\u@\h: \[\033[36m\w\e[1;31m\n: -> \[\033[0m\]"
-# PS1='\e[0;32m\u@\e[m \e[0;36m\w\e[m > '
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+# Old Prompt :  PS1='\e[0;32m\u@\e[m \e[0;36m\w\e[m > '
 
 
-# GAME SERVER ACCESS
-# for now only access when home
-# setting up guacamole for remote access
-server () {
-
-	# connect to running games or user terminal
-	if [ $1 == "connect" ]
-	then
-		if [ $2 == "rt" ]
-		then
-			ssh rt@192.168.0.248
-		fi
-		if [ $2 == "minecraft" ]
-		then
-			ssh -t minecraft@192.168.0.248 'screen -r'
-		fi
-		if [ $2 == "terraria" ]
-		then
-			ssh -t terraria@192.168.0.248 'screen -r'
-		fi
-	fi
-
-	# start servers if not running
-	if [ $1 == "start" ]
-	then
-		if [ $2 == "minecraft" ]
-		then
-			ssh -t rt@192.168.0.248 'sudo systemctl start minecraft'
-		fi
-		if [ $2 == "terraria" ]
-		then
-			ssh -t rt@192.168.0.248 'sudo systemctl start terraria'
-		fi
-	fi
-
-	# stop servers if running
-	if [ $1 == "stop" ]
-	then
-		if [ $2 == "minecraft" ]
-		then
-			ssh -t minecraft@192.168.0.248 "screen -S minecraft -X stuff 'stop'$(echo -ne '\015')"
-		fi
-		if [ $2 == "terraria" ]
-		then
-			ssh -t terraria@192.168.0.248 "screen -S terraria -X stuff 'exit'$(echo -ne '\015')"
-		fi
-	fi
-	
-	# run minecraft reset script
-	if [ $1 == "reset" ]
-	then
-		ssh -t rt@192.168.0.248 '/home/rt/minecraft/reset.sh'
-	fi
-}
-
-
-# stolen from DistroTube on Youtube, extract all sorts of different filetypes
+# found from DistroTube on Youtube
+# extract all sorts of different filetypes
 ex ()
 {
   if [ -f $1 ] ; then
@@ -120,8 +78,13 @@ ex ()
 }
 
 
-# ALIASES
-# =====================
+
+#     _    _ _
+#    / \  | (_) __ _ ___  ___  ___
+#   / _ \ | | |/ _` / __|/ _ \/ __|
+#  / ___ \| | | (_| \__ \  __/\__ \
+# /_/   \_\_|_|\__,_|___/\___||___/
+
 
 # Use exa instead of ls or tree
 alias ls='exa --group-directories-first -la'
@@ -137,22 +100,19 @@ alias grep='grep --color=auto'
 # edit configs easily
 alias ebash='micro ~/.bashrc'
 alias sr='source ~/.bashrc'
-alias emicro='micro ~/.config'
+alias emicro='micro ~/.config/micro/'
 alias elacritty='micro ~/.config/alacritty/alacritty.yml'
 
 # git
-alias gitquicksync='git add . && git commit -e && echo $GITTOKEN | xclip -sel clip && git push'
-alias token='ccat ~/token | xclip -sel clip'
+alias gitquicksync='git add . && git commit -e && token && git push'
+alias token='cat ~/.token.gpg | gpg | xclip -sel clip'
 
-# package management
+# apt shortcuts
 alias sai='sudo apt install'
 alias sap='sudo apt update'
 alias sag='sudo apt upgrade'
 alias sar='sudo apt remove'
 alias saa='sudo apt autoremove'
-
-alias ssi='sudo snap install'
-alias ssr='sudo snap remove'
 
 # add sudo and interactive flags
 alias micro='sudo micro'
@@ -162,10 +122,9 @@ alias rm='sudo rm -i'
 alias rmdir='sudo rmdir'
 alias systemctl='sudo systemctl'
 
-# open nautilus in current directory
-alias exp='nautilus .'
+# open file manager in current directory
+alias exp='nemo .'
 
-# loogin to fast campus wifi
-alias eduroam='sh ~/SecureW2_JoinNow.run'
 
-pfetch
+# Run at startup
+jfetch
