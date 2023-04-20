@@ -69,9 +69,9 @@ printf "\n\n"
 echo "${ORANGE}Copying configs across system${NC}"
 cp .bashrc ~/.bashrc || echo ERROR: COULD NOT COPY .BASHRC	
 cp .vimrc ~/.vimrc || echo ERROR: COULD NOT COPY .VIMRC
-mkdir ~/.configs/alacritty/
-cp alacritty.yml ~/.configs/alacritty/ || echo ERROR: COULD NOT COPY ALACRITTY.YML
-cp dracula.yml ~/.configs/alacritty/ || echo ERROR: COULD NOT COPY DRACULA.YML
+mkdir ~/.config/alacritty/
+cp alacritty.yml ~/.config/alacritty/ || echo ERROR: COULD NOT COPY ALACRITTY.YML
+cp dracula.yml ~/.config/alacritty/ || echo ERROR: COULD NOT COPY DRACULA.YML
 echo "${GREEN}Complete!${NC}"
 
 # JFETCH
