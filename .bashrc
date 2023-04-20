@@ -15,10 +15,12 @@ export TERM=xterm-256color
 export VISUAL=micro
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export GITUSER="ryyyyan-taylor"
 export MICRO_TRUECOLOR=1
 export SPICETIFY_INSTALL="/home/rt/spicetify-cli"
+export STARSHIP_CONFIG="/home/rt/.config/starship.toml"
+
 
 # PATH and PERL PATH
 export PATH="$SPICETIFY_INSTALL:/home/rt/.cargo/bin:$PATH"
@@ -45,7 +47,8 @@ shopt -s checkwinsize
 force_color_prompt=yes
 
 # PROMPT / WINDOW TITLE
-PS1="\n\[\033[1;32m\]\u@\h: \[\033[36m\w\e[1;31m\n⟼  \[\033[0m\]"
+# PS1="\n\[\033[1;32m\]\u@\h: \[\033[36m\w\e[1;31m\n⟼  \[\033[0m\]"
+eval "$(starship init bash)"
 # PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 # Old Prompt :  PS1='\e[0;32m\u@\e[m \e[0;36m\w\e[m > '
 
@@ -91,7 +94,7 @@ alias ls='exa --group-directories-first -la'
 alias lt='exa -T -R -L'
 
 # use bat as cat replacement
-alias cat='bat --theme=OneHalfDark'
+alias cat='batcat --theme=OneHalfDark'
 alias ccat='cat'
 
 # colorful grep
@@ -132,4 +135,3 @@ alias pip='pip3'
 
 # Run at startup
 jfetch
-# eval "$(starship init bash)"
