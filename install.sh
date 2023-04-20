@@ -77,8 +77,8 @@ echo "${GREEN}Complete!${NC}"
 # JFETCH
 printf "\n\n"
 echo "${ORANGE}Installing jfetch sys utility${NC}"
-git clone https://github.com/dylanaraps/pfetch.git
-cd pfetch/
+git clone https://github.com/Jimmysit0/jfetch.git
+cd jfetch/
 sudo make install
 cd ..
 echo "${GREEN}Complete!${NC}"
@@ -95,5 +95,5 @@ echo "${GREEN}INSTALL COMPLETED!"
 echo "Reloading bash environment and everything should be set!"
 read -r -p "Press any key to complete..." key
 
-source ~/.bashrc
+command source ~/.bashrc
 exit
