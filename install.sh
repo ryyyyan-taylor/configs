@@ -22,7 +22,7 @@ printf "\n"
 read -r -p "Press any key to continue..." key
 
 # Dependencies
-printf"\n\n"
+printf "\n\n"
 echo "${ORANGE}DEPENDENCIES:${NC}"
 echo "Curl, Git"
 echo "Please ensure these are installed prior to continuing"
