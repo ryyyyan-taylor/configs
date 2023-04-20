@@ -7,16 +7,28 @@
 # 
 # Install script for new machines
 
+# Colors
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 NC='\e[0m'
 
-echo "${ORANGE}Welcome!"
+# Welcome
+echo "${ORANGE}Welcome!${NC}"
 echo "Stay by the machine, there will be some interactive installs"
+printf "\n"
+echo "${ORANGE}WARNING"
+echo "Please update repositories prior to running this script (apt, aur, pacman, etc)${NC}"
 printf "\n"
 read -r -p "Press any key to continue..." key
 
-# CHECK USER AND DIRECTORY
+# Dependencies
+printf"\n\n"
+echo "${ORANGE}DEPENDENCIES:${NC}"
+echo "Curl, Git"
+echo "Please ensure these are installed prior to continuing"
+read -r -p "Press any key to continue..." key
+
+# Check user and directory
 printf "\n\n"
 echo "${ORANGE}Checking current user"
 if [ $EUID = 0 ]; then
@@ -29,90 +41,54 @@ if [ $(pwd | grep configs | wc -l) = 0 ]; then
 	exit
 fi
 
-# UPDATE APT
-printf '\n\n'
-echo "${ORANGE}Updating and upgrading apt databases${NC}"
-sudo apt update -y && sudo apt upgrade -y
-echo "${GREEN}Complete!${NC}"
-
-# COPY BASHRC FROM REMOTE
+# GH Authenticator
 printf "\n\n"
-echo "${ORANGE}Would you like to overwrite current .bashrc (y)?${NC}"
+echo "${ORANGE}Installing github authenticator and redirecting...${NC}"
+echo "Which package would you like to install?"
+echo "${ORANGE}(1)${NC} Debian, Ubuntu, etc (via apt)"
+echo "${ORANGE}(2)${NC} Arch (via pacman)"
 read -r key
-if [ $key = "y" ]; then
-	echo "${ORANGE}Overwriting bashrc...${NC}"
-	cp .bashrc ~/.bashrc || echo ERROR: COULD NOT COPY OVER EXISTING BASHRC	
-	echo "${GREEN}Complete!${NC}"
+if [ $key = "1" ]; then
+	type -p curl >/dev/null || sudo apt install curl -y
+	curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+	&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
+	gh auth login
+elif [ $key = "2" ]; then
+	sudo pacman -S github-cli
+	gh auth login
+
 else
-	echo Continuing...
+	echo Skipping github install...
 fi
 
 # OTHER CONFIGS
 printf "\n\n"
 echo "${ORANGE}Copying configs across system${NC}"
-cp .vimrc ~/.vimrc
+cp .bashrc ~/.bashrc || echo ERROR: COULD NOT COPY .BASHRC	
+cp .vimrc ~/.vimrc || echo ERROR: COULD NOT COPY .VIMRC
 mkdir ~/.configs/alacritty/
-cp alacritty.yml ~/.configs/alacritty/
-cp dracula.yml ~/.configs/alacritty/
+cp alacritty.yml ~/.configs/alacritty/ || echo ERROR: COULD NOT COPY ALACRITTY.YML
+cp dracula.yml ~/.configs/alacritty/ || echo ERROR: COULD NOT COPY DRACULA.YML
 echo "${GREEN}Complete!${NC}"
 
-# MICRO
+# JFETCH
 printf "\n\n"
-echo "${ORANGE}Installing micro text editor${NC}"
-sudo apt install micro -y
-echo "${GREEN}Complete!${NC}"
-
-# VIM
-printf "\n\n"
-echo "${ORANGE}Installing vim as backup text editor{NC}"
-sudo apt install vim -y
-cp .vimrc ~/.vimrc
-echo "${GREEN}Complete!${NC}"
-
-# PFETCH
-printf "\n\n"
-echo "${ORANGE}Installing pfetch sys utility${NC}"
+echo "${ORANGE}Installing jfetch sys utility${NC}"
 git clone https://github.com/dylanaraps/pfetch.git
 cd pfetch/
 sudo make install
 cd ..
 echo "${GREEN}Complete!${NC}"
 
-# MISC
+# Starship Prompt
 printf "\n\n"
-echo "${ORANGE}Installing misc smaller utilities{NC}"
-sudo apt install htop -y
-sudo apt install figlet -y
+echo "${ORANGE}Installing starship prompt${NC}"
+curl -sS https://starship.rs/install.sh | sh
+cp starship.toml ~/.config/ || echo ERROR: COULD NOT COPY STARSHIP.TOML
 echo "${GREEN}Complete!${NC}"
-
-# RUST CONFIRM
-printf "\n\n"
-echo "${ORANGE}Would you like to take the time to install Rust and the Cargo package manager?"
-echo "Do know, some aliases in .bashrc will not work without Rust utilities."
-read -r -p "Would you like to continue? (y/n): " key
-
-if [ $key = "y" ]; then
-
-	# RUST
-	printf "\n\n"
-	echo "${ORANGE}Beginning rust install, this could take a while${NC}"
-	sudp apt install cargo -y
-	echo "${GREEN}Complete!${NC}"
-
-	# RUST PROGRAMS
-	printf "\n\n"
-	echo "${ORANGE}Installing exa${NC}"
-	sudo cargo install exa
-	echo "${GREEN}Complete!${NC}"
-
-	printf "\n\n"
-	echo "${ORANGE}Installing batcat${NC}"
-	sudo cargo install batcat
-	echo "${GREEN}Complete!${NC}"
-
-else
-	echo Skipping Rust install...
-fi
 
 printf "\n\n"
 echo "${GREEN}INSTALL COMPLETED!"
