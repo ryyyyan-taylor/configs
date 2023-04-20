@@ -24,7 +24,7 @@ read -r -p "Press any key to continue..." key
 # Dependencies
 printf "\n\n"
 echo "${ORANGE}DEPENDENCIES:${NC}"
-echo "Curl, Git"
+echo "Curl, Git, Exa, make"
 echo "Please ensure these are installed prior to continuing"
 read -r -p "Press any key to continue..." key
 
