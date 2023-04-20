@@ -18,7 +18,6 @@ echo "Stay by the machine, there will be some interactive installs"
 printf "\n"
 echo "${ORANGE}WARNING"
 echo "Please update repositories prior to running this script (apt, aur, pacman, etc)${NC}"
-printf "\n"
 read -r -p "Press any key to continue..." key
 
 # Dependencies
@@ -95,5 +94,5 @@ echo "${GREEN}INSTALL COMPLETED!"
 echo "Reloading bash environment and everything should be set!"
 read -r -p "Press any key to complete..." key
 
-command source ~/.bashrc
+command source /home/rt/.bashrc
 exit
