@@ -77,6 +77,18 @@ echo "Creating wallpapers directory"
 cp -R wallpapers/ ~/Pictures/ || echo ERROR: COULD NOT COPY WALLPAPERS
 echo "${GREEN}Complete!${NC}"
 
+# Micro
+printf "\n\n"
+echo "${ORANGE}Installing micro text editor...${NC}"
+sudo pacman -S micro
+echo "${GREEN}Complete!${NC}"
+
+# Alacritty
+printf "\n\n"
+echo "${ORANGE}Installing alacritty terminal...${NC}"
+sudo pacman -S alacritty
+echo "${GREEN}Complete!${NC}"
+
 # JFETCH
 printf "\n\n"
 echo "${ORANGE}Installing jfetch sys utility${NC}"
