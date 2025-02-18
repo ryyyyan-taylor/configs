@@ -2,75 +2,41 @@
 
 # set terminal and editor
 export TERM="xterm-256color"
-export VISUAL=micro
+export VISUAL=vim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 export BAT_PAGER="less -FR --mouse"
-export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PSQLRC="~/.psqlrc"
 export FISHPATH=/home/ryan/.config/fish/config.fish
 
+export SPOTIPY_CLIENT_ID="99fa9a8945e640e1a5727e8b1676dc8f"
+export SPOTIPY_CLIENT_SECRET="10ec87088df64c8989bd0ce6a84b2cdc"
+export SPOTIPY_REDIRECT_URI="http://localhost:8080"
+export HISTCONTROL=ignoredups:erasedups
 
-set force_color_prompt yes
+
 
 # basic env varaibles
-export HISTCONTROL=ignoredups:erasedups
 set HISTSIZE 1000
 set HISTFILESIZE 2000
-
+set force_color_prompt yes
 
 # PROMPT
 function fish_prompt
     set_color green
-    echo -n "$USER@"
+	echo -e "\n"
+    echo -n "$USER @"
     set_color cyan
-    echo -n " "(basename $PWD)
-    set_color white
-    echo " > "
+    echo -n " $PWD"
+    set_color brmagenta
+    echo -e "\n> "
 end
 
 
 # GREETING
 function fish_greeting
-    pfetch
-end
-
-
-# GAME SERVER ACCESS
-function server
-    if test $argv[1] = "connect"
-        if test $argv[2] = "rt"
-            command ssh rt@192.168.0.248
-        end
-        if test $argv[2] = "minecraft"
-            command ssh -t minecraft@192.168.0.248 'screen -r'
-        end
-        if test $argv[2] = "terraria"
-            command ssh -t terraria@192.168.0.248 'screen -r'
-        end
-    end
-
-    if test $argv[1] = "start"
-        if test $argv[2] = "minecraft"
-            command ssh -t @192.168.0.248 'systemctl start minecraft'
-        end
-        if test $argv[2] = "terraria"
-            command ssh -t @192.168.0.248 'systemctl start terraria'
-        end
-    end
-
-    if test $argv[1] = "stop"
-        if test $argv[2] = "minecraft"
-            command ssh -t minecraft@192.168.0.248 'screen -S minecraft -X stuff 'stop'$(echo -ne '\015')'
-        end
-        if test $argv[2] = "terraria"
-            command ssh -t terraria@192.168.0.248 'sudo systemctl stop terraria'
-        end
-    end
-
-    if test $argv[1] = "reset"
-        command ssh -t rt@192.168.0.248 '/home/rt/minecraft/reset.sh'
-    end
+    jfetch
 end
 
 # BANG BANG functionality
@@ -101,83 +67,29 @@ bind '$' __history_previous_command_arguments
 
 
 # colors and specifics for super common stuff, use exa instead of ls
-function ls
-    command exa -a --color=always --group-directories-first $argv
-end
-function lss
-    command exa --color=always --group-directories-first $argv
-end
-function ll
-    command exa -la --color=always --group-directories-first $argv
-end
-function lt
-    command tree -C $argv
-end
-function tree
-    command tree -C $argv
-end
+alias ls='exa -la --color=always --group-directories-first' 
+alias lss='exa --color=always --group-directories-first'
+alias ll='exa -la --color=always --group-directories-first'
+alias lt='tree -C'
+alias tree='tree -C'
 
 # run things with sudo, confirm before destructive ones
-function vim
-    command sudo vim $argv
-end
-function vi
-    command sudo vim $argv
-end
-function micro
-    command sudo micro $argv
-end
-function cp
-    command sudo cp -i $argv
-end
-function mv
-    command sudo mv -i $argv
-end
-function rm
-    command sudo rm -i $argv
-end
-function rmdir
-    command sudo rmdir -i $argv
-end
+#alias cp='cp -i'
+#alias mv='mv -i'
+#alias rm= 'rm -i'
+#alias rmdir='rmdir -i'i
 
 # batcat: paged and colorized replacement for cat
-function cat
-    command batcat --theme=base16 $argv
-end
-function ccat
-    command cat $argv
-end
+alias cat='bat --theme=base16'
+alias ccat='cat'
 
-# ALIASES
-# aliases for things that don't need tab completion
-# most copied over from bashrc
-
-# navigation shortcuts
-alias docs='cd /mnt/c/Users/ryan4/Documents/'
-alias downs='cd /mnt/c/Users/ryan4/Downloads/'
-alias code='cd /mnt/c/Code/'
-
-# connect to ssh users
-alias terraria="sshpass -p 'serveradmin' ssh terraria@192.168.0.116"
-alias minecraft="sshpass -p 'serveradmin' ssh minecraft@192.168.0.116"
-
-# launch programs from command line
-alias exp='explorer.exe'
-alias subl='/mnt/c/Program Files/Sublime Text 3/subl.exe'
-
-# history with custom formatting
-alias history='history -R --show-time="%m.%d | %H:%M "'
+alias history='history -R --show-time="%m.%d | %H:%M "' 
 
 # edit configs on the go
-alias emicro='sudo micro ~/.config/micro/settings.json'
-alias ebash='sudo micro ~/.bashrc'
-alias elacritty='sudo micro /mnt/c/Users/ryan4/AppData/Roaming/alacritty/alacritty.yml'
-alias efish='sudo micro ~/.config/fish/config.fish'
+alias emicro='$VISUAL ~/.config/micro/settings.json'
+alias ebash='$VISUAL ~/.bashrc'
+alias elacritty='$VISUAL /mnt/c/Users/ryan4/AppData/Roaming/alacritty/alacritty.yml'
+alias efish='$VISUAL ~/.config/fish/config.fish'
 alias sr='source ~/.config/fish/config.fish'
 
-# apt
-alias sap='sudo apt update'
-alias sag='sudo apt upgrade'
-alias sai='sudo apt install'
-alias sar='sudo apt remove'
-alias saa='sudo apt autoremove'
+starship init fish | source

@@ -15,15 +15,18 @@ export TERM=xterm-256color
 export VISUAL=micro
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
-export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export GITUSER="ryyyyan-taylor"
 export MICRO_TRUECOLOR=1
 export SPICETIFY_INSTALL="/home/rt/spicetify-cli"
 export STARSHIP_CONFIG="/home/rt/.config/starship.toml"
 
+export SPOTIPY_CLIENT_ID="99fa9a8945e640e1a5727e8b1676dc8f"
+export SPOTIPY_CLIENT_SECRET="10ec87088df64c8989bd0ce6a84b2cdc"
+export SPOTIPY_REDIRECT_URI="http://localhost:8080"
 
 # PATH and PERL PATH
-export PATH="$SPICETIFY_INSTALL:/home/rt/.cargo/bin:$PATH"
+export PATH="/home/rt/.local/bin:$SPICETIFY_INSTALL:/home/rt/.cargo/bin:$PATH"
 
 PATH="/home/rt/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/rt/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -94,7 +97,7 @@ alias ls='exa --group-directories-first -la'
 alias lt='exa -T -R -L'
 
 # use bat as cat replacement
-alias cat='batcat --theme=OneHalfDark'
+alias cat='bat --theme=OneHalfDark'
 alias ccat='cat'
 
 # colorful grep
@@ -135,3 +138,6 @@ alias pip='pip3'
 
 # Run at startup
 jfetch
+
+# Created by `pipx` on 2023-06-29 19:41:07
+export PATH="$PATH:/home/rt/.local/bin"

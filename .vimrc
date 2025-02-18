@@ -1,5 +1,5 @@
 "Colors"
-:colorscheme industry
+"colorscheme industry"
 highlight LineNr ctermfg=grey
 
 set encoding=UTF-8
@@ -14,6 +14,7 @@ set autoindent
 set wildmenu
 set spelllang=en_us
 set paste
+set number
 
 "Allow movement through split lines"
 set wrap linebreak nolist
