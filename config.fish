@@ -67,9 +67,9 @@ bind '$' __history_previous_command_arguments
 
 
 # colors and specifics for super common stuff, use exa instead of ls
-alias ls='exa -la --color=always --group-directories-first' 
-alias lss='exa --color=always --group-directories-first'
-alias ll='exa -la --color=always --group-directories-first'
+alias ls='eza -la --color=always --group-directories-first' 
+alias lss='eza --color=always --group-directories-first'
+alias ll='eza -la --color=always --group-directories-first'
 alias lt='tree -C'
 alias tree='tree -C'
 

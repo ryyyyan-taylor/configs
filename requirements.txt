@@ -1,0 +1,6 @@
+eza
+bat
+tree
+starship
+fish
+alacritty
