@@ -1,0 +1,95 @@
+;; ___ _ __ ___
+;;/ __| '__/ __|
+;;\__ \ | | (__
+;;|___/_|  \___|
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rctl
+)
+
+;;       __
+;;  ___ / _| __ _
+;; / __| |_ / _` |
+;;| (__|  _| (_| |
+;; \___|_|  \__, |
+;;          |___/
+
+(defcfg
+  log-layer-changes no
+  process-unmapped-keys yes
+)
+
+;;__   ____ _ _ __
+;;\ \ / / _` | '__|
+;; \ V / (_| | |
+;;  \_/ \__,_|_|
+
+(defvar
+  tap-time 200
+  hold-time 200
+  hold-time-slow 500
+)
+
+;;       _ _
+;;  __ _| (_) __ _ ___
+;; / _` | | |/ _` / __|
+;;| (_| | | | (_| \__ \
+;; \__,_|_|_|\__,_|___/
+
+(defalias
+  l_qwerty (layer-switch qwerty)
+  l_graphite (layer-switch graphite)
+ 
+  caps (tap-hold $tap-time $hold-time esc caps)
+
+  spc_qwerty (tap-hold $tap-time $hold-time-slow spc @l_graphite)
+  spc_graphite (tap-hold $tap-time $hold-time-slow spc @l_qwerty)
+
+  spc (tap-hold $tap-time $hold-time spc (layer-while-held nav))
+
+  qw_a (tap-hold $tap-time $hold-time a lalt)
+  qw_s (tap-hold $tap-time $hold-time s lctl)
+  qw_d (tap-hold $tap-time $hold-time d lmet)
+  qw_f (tap-hold $tap-time $hold-time f lsft)
+
+  qw_; (tap-hold $tap-time $hold-time ; lalt)
+  qw_l (tap-hold $tap-time $hold-time l lctl)
+  qw_k (tap-hold $tap-time $hold-time k lmet)
+  qw_j (tap-hold $tap-time $hold-time j lsft)
+)
+
+;; _
+;;| | __ _ _   _  ___ _ __ ___
+;;| |/ _` | | | |/ _ \ '__/ __|
+;;| | (_| | |_| |  __/ |  \__ \
+;;|_|\__,_|\__, |\___|_|  |___/
+;;         |___/
+
+(deflayer qwerty
+  grv  1     2     3     4     5    6    7     8     9     0     -    =    bspc
+  tab  q     w     e     r     t    y    u     i     o     p     [    ]    \
+  @caps @qw_a @qw_s @qw_d @qw_f g    h    @qw_j @qw_k @qw_l @qw_;    '    ret
+  lsft z     x     c     v     b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @spc            ralt rctl
+)
+
+(deflayer graphite
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  b    l    d    w    z    '    f    o    u    j    [    ]    \
+  @caps n    r    t    s    g    y    h    a    e    i    /    ret
+  lsft q    x    m    c    v    k    p    .    ;    ,    rsft
+  lctl lmet lalt           @spc_graphite            ralt rctl
+)
+
+(deflayer nav
+  grv  1    2    3    4    5    6    7    8    9     0    -    =    bspc
+  tab  1    2    3    4    5    6    7    8    9     0    [    ]    \
+  @caps a    s    d    f    g    left down up   right ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .     /    rsft
+  lctl lmet lalt           spc            ralt rctl
+)
+
