@@ -29,8 +29,8 @@
 ;;  \_/ \__,_|_|
 
 (defvar
-  tap-time 200
-  hold-time 200
+  tap-time 300
+  hold-time 300
   hold-time-slow 500
 )
 
